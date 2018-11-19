@@ -1,39 +1,78 @@
-@custom-media --viewport-medium (width <= 50rem);
-@custom-selector :--heading h1, h2, h3, h4, h5, h6;
+/* #3.2-Functional pseudo classes----------------------------*/
+/* 
+li:matches(:nth-child(even), .target) {
+  background-color: blue;
+} 
+*/
 
+/* 
+li:not(.target) {
+  background-color: green;
+} 
+*/
+/* #3.3-CSS variables | custom-selector-------------------------*/
+/* 
 :root {
-  --fontSize: 1rem;
-  --mainColor: #12345678;
-  --secondaryColor: lab(32.5 38.5 -47.6 / 90%);
+  --awesomeColor: #D980FA;
+  --cool: 3px solid #12CBC4;
+}
+li:first-child a {
+  color: var(--awesomeColor);
+  border: var(--cool)
 }
 
-html {
-  overflow: hidden auto;
-}
+@custom-selector :--headers h1, h2, h3, h4, h5, h6;
 
-@media (--viewport-medium) {
+:--headers {
+  color: #EE5A24;
+} 
+*/
+
+/* #3.4-custom-media | mdeia query selector--------------------*/
+/* 
+@custom-media --ipad-size (max-width: 850px); 
+@custom-media --ipad-size (650px < width <= 850px);
+
+@media (--ipad-size) {
   body {
-    color: var(--mainColor);
-    font-family: system-ui;
-    font-size: var(--fontSize);
-    line-height: calc(var(--fontSize) * 1.5);
-    overflow-wrap: break-word;
-    padding-inline: calc(var(--fontSize) / 2 + 1px);
+    background-color: pink;
   }
 }
+*/
 
-:--heading {
-  margin-block: 0;
+/* #3.5-color-mod | gray() | ----------------------------*/
+/* 
+h1 {
+  color: red;
+  font-family: system-ui; 
 }
+h1:hover {
+  color: color-mod(red lightness(80%));
+  color: gray(50); 
+}
+*/
 
-.hero:matches(main, .main) {
-  background-image: image-set("img/background.jpg" 1x, "img/background-2x.jpg" 2x);
+/* #3.6-nesting----------------------------*/
+/* css에서는 너의 selection이 더 명확하고 자세할수록 더 우위를 가진다! */
+/* nesting selector는 매우 구체적이므로, 아주 강력해서 덮어쓰기가 안됨. */
+main {
+  background-color: blue;
+  & section {
+    background-color: red;
+    width: 500px;
+    & li {
+      background-color: yellow;
+      width: 400px;
+      & a {
+        color: black;
+        &:hover {
+          font-size: 30px;
+        }
+      }
+    }
+  }
 }
 
 a {
-  color: rgb(0 0 100% / 90%);
-
-  &:hover {
-    color: rebeccapurple;
-  }
+  color: white; /* this won't be overide it. */
 }
